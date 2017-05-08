@@ -28,15 +28,9 @@ namespace Contract.Controllers
         public ActionResult Index()
         {
             string userno = Session["userno"].ToString();
-            //string userno = TempData["userno"] as string;
-            //TempData.Keep("userno");
-
-            var contractu = from u in db.rs_users where u.user_code == userno select u.user_name;
-            contractu.ToArray();
-            foreach (string item in contractu)
-            {
-                ViewData["user"] = item;
-            }
+            var user_name = from u in db.rs_users where u.user_code == userno select u.user_name;
+            string username=user_name.FirstOrDefault();
+            ViewData["user"] = username;
 
             viewModel vm = new viewModel(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
             apply applyshow = new apply();
