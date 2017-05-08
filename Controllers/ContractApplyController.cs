@@ -59,17 +59,7 @@ namespace Contract.Controllers
             }
             return null;
         }
-        public string getlevel_mode(int id_level)
-        {
-            var audit_level_mode = from a in db.rs_levels where a.level_id == id_level select a.level_main;
-            return (audit_level_mode.ToString());
-        }
-
-        public string getlevel_mode_deep(int id_level_deep)
-        {
-            var audit_level_mode = from a in db.rs_levels where a.level_id == id_level_deep select a.level_code;
-            return (audit_level_mode.ToString());
-        }
+        
 
 
         public int? getname_bygroup(int? bygroup_id, int? bylevel_id)
@@ -389,7 +379,7 @@ namespace Contract.Controllers
                             HT_main_files hT_main_files = new HT_main_files();
                             hT_main_files.file_id = result.FileId;
                             hT_main_files.ht_id = hT_Main.ht_id;
-                            hT_main_files.file_index = i;//改啊啊啊啊啊 
+                            hT_main_files.file_index = i;
                             hT_main_files.user_filename = result.FileName;
                             hT_main_files.system_filename = hT_Main.ht_no;
                             db.HT_main_filess.Add(hT_main_files);
@@ -399,8 +389,7 @@ namespace Contract.Controllers
                         else
                         {
                             return Content(string.Format("<script type='text/javascript'>alert('失败原因: ' + result.ErrorMessage);window.location.href='{0}'</script>", Url.Action("Index", "ContractApply")));
-                            //return Content("失败原因:" + result.ErrorMessage);
-
+                            
                         }
                     }
                     return Content("无上传文件");
@@ -415,9 +404,6 @@ namespace Contract.Controllers
         public ActionResult Index2(string userno)
         {
             Session["userno"] = userno;
-
-            //TempData["userno"] = userno;
-            //TempData.Keep();
             var contractu = from u in db.rs_users where u.user_code == userno select u.user_status;
             var contracto = from o in db.rs_users where o.user_code == userno select o.user_name;
             contracto.ToList();
